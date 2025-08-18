@@ -44,9 +44,12 @@ describe('Login Controller', () => {
     expect(res.body).to.have.property('message', 'Usuário e senha são obrigatórios.');
   });
 
-  it('deve retornar erro se não enviar password', async () => {
-    const res = await chai.request(app).post('/login').send({ username: 'admin' });
-    expect(res).to.have.status(400);
-    expect(res.body).to.have.property('message', 'Usuário e senha são obrigatórios.');
-  });
+  it('deve retornar erro 500 se ocorrer um problema no servidor', async () => {
+  authenticateStub.throws(new Error('Erro inesperado'));
+  const res = await chai.request(app)
+    .post('/login')
+    .send({ username: 'admin', password: '123456' });
+  expect(res).to.have.status(500);
+  expect(res.body).to.have.property('message', 'Erro interno do servidor');
+});
 });

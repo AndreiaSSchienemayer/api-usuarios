@@ -3,7 +3,7 @@ class UserModel {
   constructor() {
     this.users = [
       { id: 1, username: 'admin', password: '123456' },
-      { id: 2, username: 'user', password: 'abcdef' }
+      { id: 2, username: 'Andreia', password: 'abacate' }
     ];
   }
 
